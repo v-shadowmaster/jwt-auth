@@ -65,3 +65,5 @@ Logout
    └─► Server revokes current RT session (and optionally its descendants)
 
 ```
+
+**Rotation means:** each time you refresh, you invalidate the previous refresh token and create a brand new one with a new jti. If an old RT shows up later → reuse attack → kill the chain.

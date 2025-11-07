@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:vini@localhost:5432/auth"
+}
+
+model User {
+  id              String           @id @default(cuid())
+  email           String           @unique
+  passwordHash    String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @default(now())
+  refreshSessions RefreshSession[]
+}
+
+model RefreshSession {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  jti           String    @unique // token identifier inside JWT
+  hashedToken   String // hash of RT string (never store raw token)
+  userAgent     String?
+  ip            String?
+  fingerprint   String? // optional client fingerprint
+  createdAt     DateTime  @default(now())
+  expiresAt     DateTime
+  revokedAt     DateTime?
+  replacedByJti String? // link to next jti in rotation chain
+}
