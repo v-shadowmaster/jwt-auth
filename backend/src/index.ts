@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import cookieParser from 'cookie-parser';
 import { v4 as uuidv4 } from 'uuid';
 import dotenv from 'dotenv';
+import * as crypto from 'crypto';
 dotenv.config();
 
 const app = express();
@@ -40,8 +41,8 @@ const signRefreshToken = (userId: string) => {
 };
 
 function cryptoRandomBase64(lenBytes = 32) {
-    const buf = require('crypto').randomBytes(lenBytes);
-    return buf.toString('base64url'); // node 15+ supports base64url
+    const buf = crypto.randomBytes(lenBytes); // <-- 2. Use the imported crypto module
+    return buf.toString('base64url');
 }
 
 /** Secure cookie options for refresh token */
