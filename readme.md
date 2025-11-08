@@ -4,7 +4,7 @@
 
 ### 1) - CORE CONCEPTS ( SIMPLE )
 
-**Authentication** = providing who a user is (login)
+**Authentication** = providing who a user is (login)  
 **Authorization** = deciding what a logged-in user may do (roles, scopes).
 
 **JWT (JSON Web Token)** is a compact , URL-safe token that carries claims (data) and is signed so the server can verify it wasn’t tampered with. A JWT has three parts: header.payload.signature (base64url encoded).
