@@ -15,6 +15,6 @@ export function signRefreshToken(userId: string): string {
     return jwt.sign({ sub: userId }, SECRET, { expiresIn: '30d' });
 }
 
-function verifyToken(token: string) {
+export function verifyJwt(token: string) {
     return jwt.verify(token, SECRET);
 }
